@@ -3,9 +3,9 @@
 isHead=1
 headWon=0
 tailWon=0
-echo "enter number of times do you want to play"
-read n
-for ((i=0;i<n;i++))
+flag=0
+ 
+while [[ $flag -lt 1 ]]
 do
 toss=$((RANDOM%2))
 if [ $toss -eq $isHead ]
@@ -14,7 +14,22 @@ then
 	else
 	((tailWon++))
 fi
+if [[ $headWon -eq 21 || $tailWon -eq 21 ]]
+then
+	flag=1
+	break
+fi
 done
 
-echo "head won $headWon times"
-echo "tail won $tailWon times"
+echo "head won= $headWon     tail won= $tailWon"
+if [[ $headWon -eq $tailWon ]]
+then
+	echo "Tie"
+fi
+
+if [[ $headWon -gt $tailWon ]]
+then
+	echo "Head won by " $(($headWon-$tailWon))
+else
+	echo "Tail won by " $(($tailWon-$headWon))
+fi
