@@ -24,7 +24,24 @@ done
 echo "head won= $headWon     tail won= $tailWon"
 if [[ $headWon -eq $tailWon ]]
 then
-	echo "Tie"
+diff=0
+	while [[ $diff -lt 2 ]]
+	do
+	toss=$((RANDOM%2))
+	if [ $toss -eq $isHead ]	
+	then
+        	((headWon++))
+        	else
+        	((tailWon++))
+	fi
+	if [[ $headWon -gt $tailWon ]]
+	then
+		diff=$(( $headWon-$tailWon ))
+	else
+		diff=$(( $tailWon-$headWon ))
+	fi
+	done
+
 fi
 
 if [[ $headWon -gt $tailWon ]]
